@@ -1,17 +1,18 @@
-#include "FirstMenuScene.h"
+#include "GameScene.h"
+#include "HelloWorldScene.h"
 
 USING_NS_CC;
 
-Scene* FirstMenu::createScene() {
+Scene* GameScene::createScene() {
     // お約束
     auto scene = Scene::create();
-    auto layer = FirstMenu::create();
+    auto layer = GameScene::create();
     scene->addChild(layer);
     return scene;
 }
 
 // 初期化
-bool FirstMenu::init() {
+bool GameScene::init() {
 
     // お約束
     if ( !Layer::init() ) {
@@ -21,7 +22,7 @@ bool FirstMenu::init() {
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     // ラベル設定
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+    auto label = Label::createWithTTF("Game Scene", "fonts/Marker Felt.ttf", 24);
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - label->getContentSize().height));
     this->addChild(label, 1);
@@ -29,9 +30,9 @@ bool FirstMenu::init() {
     // 背景画像設定
     auto sprite = Sprite::create("haikei.png");
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    setScale(4, 4);
     this->addChild(sprite, 0);
     
     return true;
 }
-
 

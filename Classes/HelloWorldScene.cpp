@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -19,17 +20,12 @@ bool FirstMenu::init() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    // 閉じるボタン
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(FirstMenu::menuCloseCallback, this));
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+    // Startボタン
+    auto startButton = MenuItemImage::create("start1.png", "start2.png", CC_CALLBACK_1(FirstMenu::pushStartButton, this));
 
     // メニュー
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
+    auto menu = Menu::create(startButton, NULL);
+    menu->setPosition(Vec2(visibleSize.width*.5, visibleSize.height*.5));
     this->addChild(menu, 1);
 
     // タイトル
@@ -41,17 +37,13 @@ bool FirstMenu::init() {
     // 背景画像設定
     auto sprite = Sprite::create("haikei.png");
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    sprite->setScale(4, 4);
     this->addChild(sprite, 0);
     
     return true;
 }
 
-
-void FirstMenu::menuCloseCallback(Ref* pSender)
-{
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+// StartButton押下時の処理
+void FirstMenu::pushStartButton(Ref* pSender) {
+    Director::getInstance()->pushScene(TransitionFade::create(1.0f, GameScene::createScene(), Color3B::BLACK));
 }
