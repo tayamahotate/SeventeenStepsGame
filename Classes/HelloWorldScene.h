@@ -10,8 +10,8 @@ public:
     
     // 初期化
     virtual bool init();
-
-    // a selector callback
+    
+    // StartButton押下時の処理
     void pushStartButton(cocos2d::Ref* pSender);
     
     // メソッド
